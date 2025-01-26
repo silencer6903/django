@@ -9,4 +9,5 @@ urlpatterns = [
     path('catalog/<year:year>/', views.catalog, name='year'),
     path('catalog/archive/<slug:book>/', views.archive, name='book'),
     path('catalog/archive/<slug:book>/<slug:author>/', views.archive, name='author'),
+    path('about/', views.about, name='about'),
 ]
