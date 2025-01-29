@@ -7,7 +7,8 @@ register_converter(FourDigitsYear, "year")
 urlpatterns = [
     path('', views.main_page, name='home'),
     path('catalog/<year:year>/', views.catalog, name='year'),
-    path('catalog/archive/<slug:book>/', views.archive, name='book'),
-    path('catalog/archive/<slug:book>/<slug:author>/', views.archive, name='author'),
+    path('library/', views.library, name='library'),
     path('about/', views.about, name='about'),
+    path('authentication/', views.authentication, name='aunt'),
+    path('exit/', views.exit, name='exit'),
 ]

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page do not working at that time</title>
+</head>
+<body>
+<ul>
+    {% for i in menu %}
+    {% if not forloop.last %}<li>{% else %}<li class="last">{% endif %}
+    <a href="{% url i.url_page %}">{{ i.name }}</a>
+    {% endfor %}
+</ul>
+
+{% block content %}{% endblock %}
+</body>
+</html>
