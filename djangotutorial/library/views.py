@@ -1,3 +1,5 @@
+from tkinter.font import names
+
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.urls import reverse
@@ -7,11 +9,42 @@ from django.template.defaultfilters import capfirst, join
 
 menu = [
     {'name': 'Main page', 'url_page': 'home'},
-    {'name': 'Authentication', 'url_page': 'aunt'},
     {'name': 'About us', 'url_page': 'about'},
-    {'name': 'Exit', 'url_page': 'exit'},
     {'name': 'Library', 'url_page': 'library'},
+    {'name': 'Authentication', 'url_page': 'aunt'},
+    {'name': 'Exit', 'url_page': 'exit'},
 ]
+
+data = {
+    'posts': [
+        {'title': '1984',
+         'content': """Plot Summary. George Orwell wrote 1984 in 1949. 
+                        The dystopian novel is set in 1984 - Orwells near 
+                        future and our recent past - but the novel is still 
+                        relevant today, due to its depiction of a totalitarian 
+                        government and its themes of using media manipulation and 
+                        advanced technology to control people.""",
+         'is_published': True,
+         'id': 1},
+        {'title': 'I will find you',
+         'content': """David and Cheryl Burroughs are living the dream - married, 
+                        a beautiful house in the suburbs, a three-year-old son named 
+                        Matthew - when tragedy strikes one night in the worst possible 
+                        way.""",
+         'is_published': True,
+         'id': 2},
+        {'title': 'The Courage To Be Disliked',
+         'content': """Millions have already benefited from the wisdom dispensed 
+                        in The Courage to Be Disliked, its simple yet profound advice 
+                        showing us how to harness our inner power to become the person we 
+                        would like to be.""",
+         'is_published': True,
+         'id': 3}
+    ]
+}
+
+
+
 
 
 
@@ -25,7 +58,8 @@ def main_page(request):
                 {'name': 'Керрі', 'author': 'Stephen King', 'year': '01.11.1974'},
                 {'name': 'Зелена миля', 'author': 'Stephen King', 'year': '01.11.1974'}
             ]
-        }
+        },
+        'cat_id': 0,
     }
     return render(request, 'library/main_page.html', context=data)
 
@@ -67,9 +101,73 @@ def authentication(request):
 def exit(request):
     return HttpResponse(f"<h1>EXIT!</h1>")
 
+def main_2(request):
+    return render(request, 'library/index.html', {'data':data, post:'asd'})
+
+def post(request):
+    return HttpResponse("Post")
 
 
 def not_found(request, exception):
     return HttpResponseNotFound("<h1>PAGE NOT FOUND</h1>")
+
+
+
+cats = [
+        {'title': 'Book', 'id': 1},
+        {'title': 'Comics', 'id': 2},
+        {'title': 'Magazine', 'id': 3},
+    ]
+
+def l_cat(request, id_cat):
+    data = {
+        'menu': menu,
+        'title_c': "Catalog!",
+        'book': {
+            'best_seller': [
+                {'name': 'Сяйво', 'author': 'Stephen King', 'year': '01.11.1974'},
+                {'name': 'Керрі', 'author': 'Stephen King', 'year': '01.11.1974'},
+                {'name': 'Зелена миля', 'author': 'Stephen King', 'year': '01.11.1974'}
+            ]
+        },
+        'cat_id': id_cat,
+    }
+    return render(request, 'library/main_page.html', context=data)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

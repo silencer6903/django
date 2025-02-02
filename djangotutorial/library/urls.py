@@ -11,4 +11,7 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('authentication/', views.authentication, name='aunt'),
     path('exit/', views.exit, name='exit'),
+    path('index/', views.main_2, name='main_2'),
+    path('post/', views.post, name='post'),
+    path('l_catalog/<int:id_cat>/', views.l_cat, name='l_cat'),
 ]

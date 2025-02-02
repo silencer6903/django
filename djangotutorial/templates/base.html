@@ -1,17 +1,77 @@
+{% load static %}
+{% load ex_tag %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Page do not working at that time</title>
+	<title>{{title}}</title>
+	<link type="text/css" href="{% static 'library/css/styles.css' %}" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="shortcut icon" href="{% static 'library/images/main.ico' %}" type="image/x-icon"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-<ul>
-    {% for i in menu %}
-    {% if not forloop.last %}<li>{% else %}<li class="last">{% endif %}
-    <a href="{% url i.url_page %}">{{ i.name }}</a>
-    {% endfor %}
-</ul>
+<table class="table-page" border=0 cellpadding="0" cellspacing="0">
+<tr><td valign=top>
+{% block mainmenu %}
+		<div class="header">
+			<ul id="mainmenu" class="mainmenu">
+			<li class="logo"><a href="{% url 'home' %}"><div class="logo"></div></a></li>
+{% for m in menu %}
+	{% if not forloop.last %}<li>{% else %}<li class="last">{% endif %}
+		<a href="{% url m.url_page %}">{{m.name}}</a></li>
+{% endfor %}
+			</ul>
+			<div class="clear"></div>
+		</div>
+{% endblock mainmenu %}
 
-{% block content %}{% endblock %}
+
+<table class="table-content" border=0 cellpadding="0" cellspacing="0">
+<tr>
+<!-- Sidebar зліва -->
+	<td valign="top" class="left-chapters">
+	<ul id="leftchapters">
+
+
+		{% if cat_id == 0 or cat_id is None %}
+		<li class="selected">Catalog</li>
+		{% else %}
+		<li><a href="{% url 'home' %}">Catalog</a></li>
+		{% endif %}
+
+
+		{% left_catalog_list cat_id %}
+
+
+
+		<li class="share">
+		<p>Our channel</p>
+		<a class="share-yt" href="#" target="_blank" rel="nofollow"></a>
+		</li>
+	</ul>
+</td>
+<!-- Кінець Sidebar'а -->
+<td valign="top" class="content">
+	<!-- Хлібні крихти -->
+	{% block breadcrumbs %}
+	{% endblock %}
+
+<!-- Блок контенту -->
+	<div class="content-text">
+{% block content %}
+{% endblock %}
+	</div>
+<!-- Кінець блока контенту -->
+
+</td></tr></table>
+</td></tr>
+<!-- Footer -->
+<tr><td valign=top>
+	<div id="footer">
+		<p>&copy; 2023 Часткове або повне копіювання інформації з даного сайту для розповсюдження на інших ресурсах, в тому числі і паперових, строго заборонено.</p>
+	</div>
+</td></tr></table>
+<!-- Кінець footer'а и сторінки -->
 </body>
 </html>
